@@ -1,5 +1,5 @@
 {
-    "name": "my-fullstack-app",
+    "name": "Pongal-IISERK",
     "private": true,
     "scripts": {
         "start:client": "cd client && npm start",
