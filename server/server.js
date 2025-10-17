@@ -1,10 +1,9 @@
 import express from "express";
 import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
 import SuperTokens from "supertokens-node";
 import Session from "supertokens-node/recipe/session";
 import EmailPassword from "supertokens-node/recipe/emailpassword";
+import { verifySession } from "supertokens-node/recipe/session/framework/express";
 import { middleware, errorHandler } from "supertokens-node/framework/express";
 
 //Initializing SuperTokens
@@ -38,9 +37,11 @@ app.use(express.json());
 app.get("/api/hello", (req, res) => {
     res.json({ message: "Hello from Express + Rsbuild!" });
 });
-app.post("/like-comment", verifySession(), (req: SessionRequest, res) => {
-	let userId = req.session!.getUserId();
-	//....
+
+//Protected route
+app.post("/like-comment", verifySession(), (req, res) => {
+    const userId = req.session.getUserId();
+    res.json({ message: `User ${userId} liked a comment!` });
 });
 
 //Error handler
